@@ -1,95 +1,94 @@
-// set the dimensions and margins of the graph
-document.addEventListener('DOMContentLoaded', async function () {
-    const margin = {top: 30, right: 30, bottom: 30, left: 50},
-        width = 460 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
-    
-    // append the svg object to the body of the page
-    const svg = d3.select("#left-side-container")
-      .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-    
-    // get the data
-    d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv").then( function(data) {
-    
-      // add the x Axis
-      const x = d3.scaleLinear()
-                .domain([0, 1000])
-                .range([0, width]);
-      svg.append("g")
-          .attr("transform", `translate(0, ${height})`)
-          .call(d3.axisBottom(x));
-    
-      // add the y Axis
-      const y = d3.scaleLinear()
-                .range([height, 0])
-                .domain([0, 0.01]);
-      svg.append("g")
-          .call(d3.axisLeft(y));
-    
-      // Compute kernel density estimation
-      let kde = kernelDensityEstimator(kernelEpanechnikov(7), x.ticks(40))
-      let density =  kde( data.map(function(d){  return d.price; }) )
-    
-      // Plot the area
-      const curve = svg
-        .append('g')
-        .append("path")
-          .attr("class", "mypath")
-          .datum(density)
-          .attr("fill", "#69b3a2")
-          .attr("opacity", ".8")
-          .attr("stroke", "#000")
-          .attr("stroke-width", 1)
-          .attr("stroke-linejoin", "round")
-          .attr("d",  d3.line()
-            .curve(d3.curveBasis)
-              .x(function(d) { return x(d[0]); })
-              .y(function(d) { return y(d[1]); })
-          );
-    
-      // A function that update the chart when slider is moved?
-      function updateChart(binNumber) {
-        // recompute density estimation
-        kde = kernelDensityEstimator(kernelEpanechnikov(7), x.ticks(binNumber))
-        density =  kde( data.map(function(d){  return d.price; }) )
-    
-    
-        // update the chart
-        curve
-          .datum(density)
-          .transition()
-          .duration(1000)
-          .attr("d",  d3.line()
-            .curve(d3.curveBasis)
-              .x(function(d) { return x(d[0]); })
-              .y(function(d) { return y(d[1]); })
-          );
-      }
-    
-      // Listen to the slider?
-      d3.select("#mySlider").on("change", function(d){
-        selectedValue = this.value
-        updateChart(selectedValue)
-      })
-    
-    });
-    
-    
-    // Function to compute density
-    function kernelDensityEstimator(kernel, X) {
-      return function(V) {
-        return X.map(function(x) {
-          return [x, d3.mean(V, function(v) { return kernel(x - v); })];
-        });
-      };
+var isAggregated = false;
+var team = 1;
+var host = "all";
+var team_hosts = [];
+var start_minute = 88;
+var current_minute = start_minute;
+var end_minute = start_minute+120;
+var duration = 3000;
+
+function changeDataType(){
+    if(document.getElementById("datatype").value == "aggregated"){
+        isAggregated = true;
+    } else {
+        isAggregated = false;
     }
-    function kernelEpanechnikov(k) {
-      return function(v) {
-        return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
-      };
+    updateData()
+}
+
+async function changeTeam(){
+    team = document.getElementById("team").value;
+    url = "http://localhost:5000/getTeamData?team="+team
+    let response = await fetch(url);
+    let data = await response.json();
+    team_hosts = data["host"]
+    generateHostDropDown()
+    updateData()
+}
+
+async function startUpdateData(){
+    await updateData()
+    console.log(current_minute)
+    if(current_minute <= end_minute && isRunning){
+        current_minute += 1
+        setTimeout(function(){startUpdateData()}, duration);
     }
-})
+}
+
+async function updateData() {
+    url = "http://localhost:5000/getData?team="+team+"&host="+host+"&time="+current_minute
+    let response = await fetch(url);
+    let data = await response.json();
+
+    if(isAggregated){
+        updateWordCloudData(data["wordcloud"]["aggregated"]);
+        if(Object.keys(data["sankey"]["aggregated"]).length > 0){
+            updateSankeyData(data["sankey"]["aggregated"]);
+        } else {
+            console.log("No Data")
+        }
+    } else {
+        updateWordCloudData(data["wordcloud"]["minute"]);
+        if(Object.keys(data["sankey"]["minute"]).length > 0){
+            updateSankeyData(data["sankey"]["minute"]);
+        } else {
+            console.log("No Data")
+        }
+    }
+    updatePlaySlider();
+}
+
+window.addEventListener('load', function () {
+
+    // word cloud
+    myWordCloud = wordCloud("body");
+
+    //sankey
+    sankey_formatNumber, sankey_format, sankey_color = d3.scaleOrdinal(d3.schemeCategory20);
+    sankey_svg = d3.select("#sankey_svg")
+    sankey_width = +sankey_svg.attr("width"),
+    sankey_height = +sankey_svg.attr("height");
+
+    sankey_t = d3.transition()
+    .duration(5000)
+    .ease(d3.easeLinear);
+
+    sankey = d3.sankey()
+      .nodeId(function(d) { return d.name; })
+      .nodeWidth(15)
+      .nodePadding(10)
+      .extent([[1, 1], [sankey_width - 1, sankey_height - 1]]);
+
+    sankey_links = sankey_svg.append("g")
+    .attr("class", "links");
+
+    sankey_nodes = sankey_svg.append("g")
+    .attr("class", "nodes");
+
+    sankey_formatNumber = d3.format(",");
+    sankey_format = function(d) { return sankey_formatNumber(d); };
+
+    // update Data
+    startUpdateData()
+    changeTeam()
+});

@@ -1,62 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Homework 5</title>
-    <link href="css/bootstrap_updated.css" rel="stylesheet" />
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <link href="css/style.css" rel="stylesheet" />
-</head>
-<div id="wrapper" style="text-align: center">
-    <h2>CSE 578 Final Project</h2>
-    <h3>Aakash - Natarajan - Arvind - Adithya</h3>
-    <hr style="width: 100%" />
-    <div class="container">
-        <div class="mainheading">
-            <div class="row justify-content-center">
-                <div class="col-md-7">
-                    <h1 class="webpagetitle">Visualization of a Hacking event</h1>
-                    <p class="lead" style='text-align: left; color: black;'>
-                        Description goes here.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <section class="featured-posts">
-            <div class="row justify-content-center">
-
-                <div class="section-title">
-                    <h2><span>Heading goes here</br></span></h2>
-                </div>
-
-            </div>
-            <div class="row justify-content-center">
-
-                <div class="card">
-                    <div id="left-side-container">
-                        <svg id="left-side"></svg>
-                    </div>
-                    <br>
-                    <div class="range">
-                        <input type="range" name="mySlider" id=mySlider min="10" max="100" value="50" />
-                    </div>
-                    </br>
-                    <br>
-                    </br>
-                </div>
-            </div>
-        </section>
-        <div class="footer">
-            <p class="pull-left">Data source: <a href="http://cptc.rit.edu/">Hacking Event Data</a></p>
-            <p class="pull-right"> Paper source: <a
-                    href="https://diglib.eg.org/bitstream/handle/10.1111/cgf13965/v39i3pp089-100.pdf"> Bombalytics:
-                    Visualization of Competition and Collaboration Strategies of Players in a Bomb Laying Game</a></p>
-        </div>
-        <div class="navbar fixed-bottom"><div class="range">
-            <input type="range" name="mySlider" id=mySlider min="0" max="100" value="50" />
-        </div></div>
-    </div>
-    <script src="js/bootstrap_min_updated.js"></script>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/sankey.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://unpkg.com/d3-sankey@0"></script>
+    <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
     <script src="js/main.js"></script>
-    </body>
+    <script src="js/slider.js"></script>
+    <script src="js/wordcloud.js"></script>
+    <script src="js/sankey.js"></script>
+  </head>
+  <body>
+    <div>
+      <label for="datatype">Choose Type:</label>
+      <select name="datatype" id="datatype" onchange="changeDataType()">
+        <option value="minute">Minute Wise</option>
+        <option value="aggregated">Aggregated</option>
+      </select>
+      <label for="team">Choose Team:</label>
+      <select name="team" id="team" onchange="changeTeam()">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="5">5</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+      </select>
+      <div>
+        <span>
+          <svg width="700" height="700" id="sankey_svg"></svg>
+        </span>
+        <span>
+          <span>
+            <label for="host">Choose Host:</label>
+            <select name="host" id="host" onchange="changeHost()"></select>
+          </span>
+          <svg width="500" height="500" id="word_cloud_svg"></svg>
+        </span>
+      </div>
+    </div>
+    <img src="images/pause.png" id="playButton" onclick="pausePlayClick()">
+    <input type="range" min="1" max="100" value="0" id="playSlider" onchange="sliderChange()">
+  </body>
 </html>
