@@ -36,14 +36,6 @@ def getData():
             }
     return resp
 
-@app.route('/getStartEndTime', methods=['GET'])
-def getStartEndTime():
-    team = request.args["team"]
-    datafile = "data/processed/team_minMax.json"
-    f = open(datafile)
-    dat = json.load(f)
-    print(dat)
-    return {"Time": dat[team] if team in dat else []}
 
 @app.route('/getTeamData', methods=['GET'])
 def getTeamData():
