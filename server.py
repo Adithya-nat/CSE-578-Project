@@ -16,6 +16,13 @@ def helloWorld():
     return send_from_directory("static", "index.html")
     # return "Hello, cross-origin-world!"
 
+@app.route('/getStartEndTime', methods=['GET'])
+def getStartEndTime():
+    team = request.args["team"]
+    datafile = "data/processed/team_minMax.json"
+    f = open(datafile)
+    dat = json.load(f)
+    return {"Time": dat[team] if team in dat else []}
 
 @app.route('/getData', methods=['GET'])
 def getData():
@@ -29,6 +36,14 @@ def getData():
             }
     return resp
 
+@app.route('/getStartEndTime', methods=['GET'])
+def getStartEndTime():
+    team = request.args["team"]
+    datafile = "data/processed/team_minMax.json"
+    f = open(datafile)
+    dat = json.load(f)
+    print(dat)
+    return {"Time": dat[team] if team in dat else []}
 
 @app.route('/getTeamData', methods=['GET'])
 def getTeamData():
@@ -37,6 +52,8 @@ def getTeamData():
     f = open(datafile)
     data3 = json.load(f)
     return {"host": data3[team] if team in data3 else []}
+
+
 
 
 def getWordCloudData(team, host, time):
