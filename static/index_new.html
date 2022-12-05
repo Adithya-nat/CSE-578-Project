@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Homework 5</title>
+    <link href="css/bootstrap_updated.css" rel="stylesheet" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="css/main_new.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="d-none" id="overlay" onclick="hide(event)"></div>
+
+    <div id="wrapper" style="text-align: center">
+        <h2>CSE 578 Final Project</h2>
+        <h3>Aakash - Natarajan - Arvind - Adithya</h3>
+        <hr style="width: 100%" />
+        <div class="container">
+
+            <div class="mainheading">
+                <div class="row justify-content-center">
+                    <div class="col-md-7">
+                        <h1 class="webpagetitle">Visualization of a Hacking event</h1>
+                        <p class="lead" style='text-align: left; color: black;'>
+                            Description goes here.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <section class="featured-posts">
+                <div class="graphBox">
+                    <div class="box">
+
+                        <div id="left-top-container">
+                            <div>
+                                <button onclick="dropDown(event);" class="menu-btn" type="button">
+                                    Menu 1 &#9013;
+                                </button>
+                                <div class="d-none shadow rounded menu">
+                                    <span class="d-block menu-option"><label><input type="checkbox">&nbsp;
+                                            Option 1</label></span>
+                                    <span class="d-block menu-option"><label><input type="checkbox">&nbsp;
+                                            Option 2</label></span>
+                                    <span class="d-block menu-option"><label><input type="checkbox">&nbsp;
+                                            Option 3</label></span>
+                                </div>
+                            </div>
+                            <svg id="left-side"></svg>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div id="left-bottom-container">
+                            <svg id="left-side"></svg>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div id="right-top-container">
+                            <svg id="left-side"></svg>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div id="right-bottom-container">
+                            <svg id="left-side"></svg>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row justify-content-center">
+                <div class="col-xs-6">
+
+                    <div class="section-title">
+                        <h2><span>Heading goes here</br></span></h2>
+                    </div>
+
+                </div>
+                <div class="col-xs-6">
+
+                    <div class="card">
+                        <div id="left-side-container">
+                            <svg id="left-side"></svg>
+                        </div>
+                        <br>
+                        </br>
+                        <br>
+                        </br>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+
+                    <div class="section-title">
+                        <h2><span>Heading goes here</br></span></h2>
+                    </div>
+
+                </div>
+                <div class="col-xs-6">
+
+                    <div class="card">
+                        <div id="right-side-container">
+                            <svg id="right-side"></svg>
+                        </div>
+                        <br>
+                        </br>
+                        <br>
+                        </br>
+                    </div>
+                </div>
+            </div> -->
+            </section>
+            <div class="footer">
+                <p class="pull-left">Data source: <a href="http://cptc.rit.edu/">Hacking Event Data</a></p>
+                <p class="pull-right"> Paper source: <a
+                        href="https://diglib.eg.org/bitstream/handle/10.1111/cgf13965/v39i3pp089-100.pdf"> Bombalytics:
+                        Visualization of Competition and Collaboration Strategies of Players in a Bomb Laying Game</a>
+                </p>
+            </div>
+            <div class="navbar fixed-bottom">
+                <div class="range">
+                    <input type="range" name="mySlider" id=mySlider min="0" max="100" value="50" />
+                </div>
+            </div>
+        </div>
+        <script src="js/bootstrap_min_updated.js"></script>
+        <script src="js/main_new.js"></script>
+</body>
+
+</html>
