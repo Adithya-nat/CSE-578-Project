@@ -1,17 +1,20 @@
 import json
 
-from flask import Flask, request
-from flask_cors import CORS, cross_origin
+from flask import Flask, request, send_from_directory
 
-app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+# from flask_cors import CORS, cross_origin
+
+# app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='static')
+# cors = CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route("/")
-@cross_origin()
+# @cross_origin()
 def helloWorld():
-    return "Hello, cross-origin-world!"
+    return send_from_directory("static", "index.html")
+    # return "Hello, cross-origin-world!"
 
 
 @app.route('/getData', methods=['GET'])
