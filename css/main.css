@@ -1,0 +1,38 @@
+html {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+svg {
+  font-size: 9px;
+  display: block;
+  margin: 10px;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  padding: 5px;
+  display: inline-block;
+}
+
+label {
+    margin: 10px;
+}
+
+#playButton {
+	width: 35px;
+	height : 35px;
+	float: left;
+	margin-top: 10px;
+}
+
+#playSlider {
+	width: 96%;
+	float: right;
+	margin-top: 20px;
+}
+
+#opacitySlider, #attributesList {
+	width: 100%;
+	margin-top: 7px;
+}
