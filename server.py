@@ -22,7 +22,11 @@ def getData():
     team = request.args["team"]
     host = request.args["host"]
     time = request.args["time"]
-    resp = {"sankey": getSankeyData(team, time), "wordcloud": getWordCloudData(team, host, time)}
+    resp = {
+    "sankey": getSankeyData(team, time),
+            "wordcloud": getWordCloudData(team, host, time),
+            "treeMap": getTreeMapData(team, time)
+            }
     return resp
 
 
@@ -71,5 +75,20 @@ def getSankeyData(team, time):
     f = open(datafile)
     data2 = json.load(f)
     dt["aggregated"] = data2[time] if time in data2 else {}
+
+    return dt
+
+
+def getTreeMapData(team, time):
+    # plain = {"time": time, "links": [], "nodes": []}
+    datafile = "data/processed/treeMap/minute/team_{}_treeMap.json".format(team)
+    f = open(datafile)
+    data1 = json.load(f)
+    dt = {"minute": data1[time] if time in data1 else {}}
+
+    # datafile = "data/processed/sankey/aggregated/team_{}_treeMap.json".format(team)
+    # f = open(datafile)
+    # data2 = json.load(f)
+    # dt["aggregated"] = data2[time] if time in data2 else {}
 
     return dt
