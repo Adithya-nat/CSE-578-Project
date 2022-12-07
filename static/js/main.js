@@ -36,7 +36,7 @@ async function startUpdateData(){
 }
 
 async function updateData() {
-    url = "http://localhost:5000/getData?team="+team+"&host="+host+"&time="+current_minute
+    url = "getData?team="+team+"&host="+host+"&time="+current_minute
     let response = await fetch(url);
     let data = await response.json();
 
