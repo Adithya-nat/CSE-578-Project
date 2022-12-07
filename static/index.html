@@ -1,48 +1,301 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/sankey.css" rel="stylesheet">
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://unpkg.com/d3-sankey@0"></script>
-    <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/slider.js"></script>
-    <script src="js/wordcloud.js"></script>
-    <script src="js/sankey.js"></script>
-  </head>
-  <body>
-    <div>
-      <label for="datatype">Choose Type:</label>
-      <select name="datatype" id="datatype" onchange="changeDataType()">
-        <option value="minute">Minute Wise</option>
-        <option value="aggregated">Aggregated</option>
-      </select>
-      <label for="team">Choose Team:</label>
-      <select name="team" id="team" onchange="changeTeam()">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="5">5</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-      </select>
-      <div>
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/sankey.css" rel="stylesheet">
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://unpkg.com/d3-sankey@0"></script>
+  <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/slider.js"></script>
+  <script src="js/wordcloud.js"></script>
+  <script src="js/sankey.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+  <link href="css/main_new.css" rel="stylesheet" />
+</head>
+<body>
+<div>
+  <!--      <label for="datatype">Choose Type:</label>-->
+  <!--      <select name="datatype" id="datatype" onchange="changeDataType()">-->
+  <!--        <option value="minute">Minute Wise</option>-->
+  <!--        <option value="aggregated">Aggregated</option>-->
+  <!--      </select>-->
+  <!--      <label for="team">Choose Team:</label>-->
+  <!--      <select name="team" id="team" onchange="changeTeam()">-->
+  <!--        <option value="1">1</option>-->
+  <!--        <option value="2">2</option>-->
+  <!--        <option value="5">5</option>-->
+  <!--        <option value="7">7</option>-->
+  <!--        <option value="8">8</option>-->
+  <!--      </select>-->
+  <div>
         <span>
-          <svg width="700" height="700" id="sankey_svg"></svg>
+<!--          <svg width="700" height="700" id="sankey_svg"></svg>-->
         </span>
-        <span>
+    <span>
+<!--          <span>-->
+      <!--            <label for="host">Choose Host:</label>-->
+      <!--            <select name="host" id="host" onchange="changeHost()"></select>-->
+      <!--          </span>-->
+      <!--          <svg width="500" height="500" id="word_cloud_svg"></svg>-->
+        </span>
+  </div>
+</div>
+<div id="wrapper" style="text-align: center">
+  <h2>CSE 578 Final Project</h2>
+  <h3>Aakash - Natarajan - Arvind - Adithya</h3>
+  <hr style="width: 100%" />
+</div>
+<div class="container">
+
+
+  <div class="mainheading">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <h1 class="webpagetitle">Visualization of a Hacking event</h1>
+      </div>
+    </div>
+  </div>
+  <section class="featured-posts">
+    <label for="datatype">Choose Type:</label>
+    <select class = "datatype-select" name="datatype" id="datatype" onchange="changeDataType()">
+      <option value="minute">Minute Wise</option>
+      <option value="aggregated">Aggregated</option>
+    </select>
+    <label for="team">Choose Team:</label>
+    <select name="team" id="team" onchange="changeTeam()">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="5">5</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select>
+    <!--            <button type="button" class="btn btn-primary" onclick="playData()">Primary</button>-->
+    <!--            <div class="dropdown" >-->
+    <!--                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">-->
+    <!--                    Select Team-->
+    <!--                </button>-->
+    <!--                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="teamDropdown">-->
+    <!--                    <li><a class="dropdown-item" value="1" href="#">Team 1</a></li>-->
+    <!--                    <li><a class="dropdown-item" value="2" href="#">Team 2</a></li>-->
+    <!--                    <li><a class="dropdown-item" value="5" href="#">Team 5</a></li>-->
+    <!--                    <li><a class="dropdown-item" value="7" href="#">Team 7</a></li>-->
+    <!--                    <li><a class="dropdown-item" value="8" href="#">Team 8</a></li>-->
+    <!--                    <li><a class="dropdown-item" value="9" href="#">Team 9</a></li>-->
+    <!--                </ul>-->
+    <!--            </div>-->
+    <!--            <div class="dropdown" >-->
+    <!--                <button class="btn btn-secondary dropdown-toggle" type="button" id="data_type_dropdown" data-bs-toggle="dropdown" aria-expanded="false">-->
+    <!--                    Select Team-->
+    <!--                </button>-->
+    <!--                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="data_type">-->
+    <!--                    <li><a class="dropdown-item" value="minute" href="#">Minute Wise</a></li>-->
+    <!--                    <li><a class="dropdown-item" value="aggregated" href="#">Aggregated</a></li>-->
+    <!--                </ul>-->
+    <!--            </div>-->
+    <div class="graphBox">
+      <div class="box">
+
+
+        <div class="chart-container">
+
+          <!--                        <div class="dropdown">-->
+          <!--                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">-->
+          <!--                                Dropdown button-->
+          <!--                            </button>-->
+          <!--                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">-->
+          <!--                                <div class="form-check">-->
+          <!--                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">-->
+          <!--                                    <label class="form-check-label" for="flexCheckDefault1">-->
+          <!--                                        Default checkbox-->
+          <!--                                    </label>-->
+          <!--                                </div>-->
+          <!--                                <div class="form-check">-->
+          <!--                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked>-->
+          <!--                                    <label class="form-check-label" for="flexCheckChecked1">-->
+          <!--                                        Checked checkbox-->
+          <!--                                    </label>-->
+          <!--                                </div>-->
+          <!--                            </ul>-->
+          <!--                        </div>-->
+
           <span>
             <label for="host">Choose Host:</label>
             <select name="host" id="host" onchange="changeHost()"></select>
           </span>
+          <svg width="600" height="600" id="sankey_svg"></svg>
+        </div>
+      </div>
+      <div class="box">
+        <div class="chart-container" id="wc-dropdown">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                <label class="form-check-label" for="flexCheckDefault2">
+                  Default checkbox
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked>
+                <label class="form-check-label" for="flexCheckChecked2">
+                  Checked checkbox
+                </label>
+              </div>
+            </ul>
+          </div>
           <svg width="500" height="500" id="word_cloud_svg"></svg>
-        </span>
+        </div>
+      </div>
+      <div class="box">
+        <div class="chart-container">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                <label class="form-check-label" for="flexCheckDefault3">
+                  Default checkbox
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked>
+                <label class="form-check-label" for="flexCheckChecked3">
+                  Checked checkbox
+                </label>
+              </div>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
+                <label class="form-check-label" for="flexCheckDefault4">
+                  Default checkbox
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" checked>
+                <label class="form-check-label" for="flexCheckChecked4">
+                  Checked checkbox
+                </label>
+              </div>
+            </ul>
+          </div>
+          <svg id="svg-3"></svg>
+        </div>
+      </div>
+      <div class="box">
+        <div class="chart-container">
+
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
+                <label class="form-check-label" for="flexCheckDefault5">
+                  Default checkbox
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked5" checked>
+                <label class="form-check-label" for="flexCheckChecked5">
+                  Checked checkbox
+                </label>
+              </div>
+            </ul>
+          </div>
+
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
+                <label class="form-check-label" for="flexCheckDefault6">
+                  Default checkbox
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked6" checked>
+                <label class="form-check-label" for="flexCheckChecked6">
+                  Checked checkbox
+                </label>
+              </div>
+            </ul>
+          </div>
+          <svg id="svg-4"></svg>
+        </div>
       </div>
     </div>
-    <img src="images/pause.png" id="playButton" onclick="pausePlayClick()">
-    <input type="range" min="1" max="100" value="0" id="playSlider" onchange="sliderChange()">
-  </body>
+    <!-- <div class="row justify-content-center">
+    <div class="col-xs-6">
+
+        <div class="section-title">
+            <h2><span>Heading goes here</br></span></h2>
+        </div>
+
+    </div>
+    <div class="col-xs-6">
+
+        <div class="card">
+            <div id="left-side-container">
+                <svg id="left-side"></svg>
+            </div>
+            <br>
+            </br>
+            <br>
+            </br>
+        </div>
+    </div>
+
+    <div class="col-xs-6">
+
+        <div class="section-title">
+            <h2><span>Heading goes here</br></span></h2>
+        </div>
+
+    </div>
+    <div class="col-xs-6">
+
+        <div class="card">
+            <div id="right-side-container">
+                <svg id="right-side"></svg>
+            </div>
+            <br>
+            </br>
+            <br>
+            </br>
+        </div>
+    </div>
+</div> -->
+  </section>
+  <div class="footer">
+    <p class="pull-left">Data source: <a href="http://cptc.rit.edu/">Hacking Event Data</a></p>
+    <p class="pull-right"> Paper source: <a
+            href="https://diglib.eg.org/bitstream/handle/10.1111/cgf13965/v39i3pp089-100.pdf"> Bombalytics:
+      Visualization of Competition and Collaboration Strategies of Players in a Bomb Laying Game</a>
+    </p>
+  </div>
+</div>
+<img src="images/pause.png" id="playButton" onclick="pausePlayClick()">
+<input type="range" min="1" max="100" value="0" id="playSlider" onchange="sliderChange()">
+</body>
 </html>
