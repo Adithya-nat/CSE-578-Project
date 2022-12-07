@@ -80,7 +80,7 @@ function changeDataType(){
 
 async function changeTeam(){
     team = document.getElementById("team").value;
-    url = "http://localhost:5000/getTeamData?team="+team
+    url = "getTeamData?team="+team
     let response = await fetch(url);
     let data = await response.json();
     team_hosts = data["host"]

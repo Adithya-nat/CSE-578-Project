@@ -4,22 +4,52 @@ function updateSankey(graph) {
     var link = sankey_links.selectAll("path")
         .data(graph.links, function(d) { return d; });
 
+
+    var div = d3.select("body")
+        .append("span")
+        .style("opacity", 0)
+        .attr("class", "tooltip")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "10px")
+        .style("position", "absolute")
+
     var linkEnter = link.enter().append("path")
-      .attr("d", d3.sankeyLinkHorizontal())
-      .attr("class", "link")
-      .attr("stroke-width", function(d) { return Math.max(1, d.width); });
+        .attr("d", d3.sankeyLinkHorizontal())
+        .attr("class", "link")
+        .attr("stroke-width", function(d) { return Math.max(1, d.width); });
+
+    linkEnter.on("mouseover", function(d) {
+        console.log("mouseover", d);
+        div
+            .html("Source IP: " + d.source.name + "<br/>" + "Total Bytes " + d.source.value +"<br/>" + "Target IP: " + d.target.name +"<br/>" + "Total bytes: " + d.target.value)
+            .style("opacity", 1);
+    })
+        .on("mouseout", function() {
+            div
+                .style("opacity", 0);
+        })
+        .on("mousemove", function(event, d) {
+            div
+                .style("left",(1000)+"px")
+                .style("top",(175)+"px")
+        });
 
     link.transition(sankey_t)
-      .attr("d", d3.sankeyLinkHorizontal())
-      .attr("stroke-width", function(d) { return Math.max(1, d.width); });
+        .attr("d", d3.sankeyLinkHorizontal())
+        .attr("stroke-width", function(d) { return Math.max(1, d.width); });
 
     linkEnter.append("title")
-      .text(function(d) { return d.source.name + " → " + d.target.name + "\n" + sankey_format(d.value); });
+        .text(function(d) { return d.source.name + " → " + d.target.name + "\n" + sankey_format(d.value); });
+
+
 
     link.exit().remove();
 
     var node = sankey_nodes.selectAll("g")
-      .data(graph.nodes, function(d) { return d.name; });
+        .data(graph.nodes, function(d) { return d.name; });
 
     var nodeEnter = node.enter().append("g");
 
@@ -40,14 +70,14 @@ function updateSankey(graph) {
         .attr("x", function(d) { return d.x0 - 6; })
         .attr("y", function(d) { return (d.y1 + d.y0) / 2; })
         .text(function(d) { return d.name; })
-      .filter(function(d) { return d.x0 < sankey_width / 2; })
+        .filter(function(d) { return d.x0 < sankey_width / 2; })
         .attr("x", function(d) { return d.x1 + 6; })
         .attr("text-anchor", "start");
 
     node.select("text").transition(sankey_t)
-      .attr("y", function(d) { return (d.y1 + d.y0) / 2; })
-      .filter(function(d) { return d.x0 < sankey_width / 2; })
-      .attr("text-anchor", "start");
+        .attr("y", function(d) { return (d.y1 + d.y0) / 2; })
+        .filter(function(d) { return d.x0 < sankey_width / 2; })
+        .attr("text-anchor", "start");
 
     nodeEnter.append("title")
         .text(function(d) { return d.name + "\n" + sankey_format(d.value); });
@@ -55,17 +85,18 @@ function updateSankey(graph) {
     node.select("title")
         .text(function(d) { return d.name + "\n" + sankey_format(d.value); });
 
+
     node.exit().remove();
 }
 
 function updateSankeyData(data) {
     sankey
-      .nodes(data.nodes)
-      .links(data.links);
+        .nodes(data.nodes)
+        .links(data.links);
 
     updateSankey(sankey());
 
     sankey_t = d3.transition()
-    .duration(3000)
-    .ease(d3.easeCubicIn);
+        .duration(3000)
+        .ease(d3.easeCubicIn);
 }
