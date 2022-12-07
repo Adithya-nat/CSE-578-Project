@@ -4,16 +4,15 @@ import csv
 from dateutil.parser import parse
 from flask import Flask, request, send_from_directory
 
-# from flask_cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin
 
-# app = Flask(__name__)
 app = Flask(__name__, static_url_path='', static_folder='static')
-# cors = CORS(app)
-# app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 start_time = parse("2018-11-03T12:00:00.000Z")
 
 @app.route("/")
-# @cross_origin()
+@cross_origin()
 def helloWorld():
     return send_from_directory("static", "index.html")
     # return "Hello, cross-origin-world!"
