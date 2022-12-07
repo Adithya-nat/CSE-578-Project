@@ -6,6 +6,7 @@ var start_minute = 88;
 var current_minute = start_minute;
 var end_minute = start_minute+120;
 var duration = 3000;
+const $ = (id) => document.getElementById(id)
 
 
 function get_ip_or_host(x) {
@@ -101,7 +102,17 @@ async function updateData() {
     let response = await fetch(url);
     let data = await response.json();
 
+    console.log("word cloud data", data["wordcloud"]["aggregated"].length);
+    if(data["wordcloud"]["aggregated"].length == 0 || data["wordcloud"]["aggregated"].length == 0) {
+        console.log("No data");
+        document.getElementById('wc_no_data').style.display = 'block';
+    }
+    else {
+       document.getElementById('wc_no_data').style.display = 'none';
+    }
+
     if(isAggregated){
+
         updateWordCloudData(data["wordcloud"]["aggregated"]);
         if(Object.keys(data["sankey"]["aggregated"]).length > 0){
             updateSankeyData(data["sankey"]["aggregated"]);
@@ -115,6 +126,8 @@ async function updateData() {
         } else {
             console.log("No Data")
         }
+        drawStackedChart(data["stackedBar"])
+
     }
     updatePlaySlider();
 }
@@ -128,23 +141,23 @@ window.addEventListener('load', function () {
     sankey_formatNumber, sankey_format, sankey_color = d3.scaleOrdinal(d3.schemeCategory20);
     sankey_svg = d3.select("#sankey_svg")
     sankey_width = +sankey_svg.attr("width"),
-    sankey_height = +sankey_svg.attr("height");
+        sankey_height = +sankey_svg.attr("height");
 
     sankey_t = d3.transition()
-    .duration(5000)
-    .ease(d3.easeLinear);
+        .duration(5000)
+        .ease(d3.easeLinear);
 
     sankey = d3.sankey()
-      .nodeId(function(d) { return d.name; })
-      .nodeWidth(15)
-      .nodePadding(10)
-      .extent([[1, 1], [sankey_width - 1, sankey_height - 1]]);
+        .nodeId(function(d) { return d.name; })
+        .nodeWidth(15)
+        .nodePadding(10)
+        .extent([[1, 1], [sankey_width - 1, sankey_height - 1]]);
 
     sankey_links = sankey_svg.append("g")
-    .attr("class", "links");
+        .attr("class", "links");
 
     sankey_nodes = sankey_svg.append("g")
-    .attr("class", "nodes");
+        .attr("class", "nodes");
 
     sankey_formatNumber = d3.format(",");
     sankey_format = function(d) { return sankey_formatNumber(d); };

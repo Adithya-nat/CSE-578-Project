@@ -39,7 +39,7 @@ function populateDropdowns() {
             }
 
 
-            const dropdownel = d3.select("#wc-dropdown")
+            const dropdownel = d3.select("#chart-container-2")
                 .append("div")
                 .attr("class", "drop-down");
 
@@ -67,7 +67,7 @@ function populateDropdowns() {
                         .attr("data-host", d => d)
                         .on("change", function (e, d) {
                             // console.log(this)
-                            const newhosts = d3.selectAll("#wc-dropdown .form-check-input")
+                            const newhosts = d3.selectAll("#chart-container-2 .form-check-input")
                                 .nodes()
                                 .filter(el => !!el.checked)
                                 .map(el => d3.select(el).attr("data-host"))

@@ -13,6 +13,7 @@
   <script src="js/slider.js"></script>
   <script src="js/wordcloud.js"></script>
   <script src="js/sankey.js"></script>
+  <script src="js/stackedchart.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
@@ -21,29 +22,10 @@
 </head>
 <body>
 <div>
-  <!--      <label for="datatype">Choose Type:</label>-->
-  <!--      <select name="datatype" id="datatype" onchange="changeDataType()">-->
-  <!--        <option value="minute">Minute Wise</option>-->
-  <!--        <option value="aggregated">Aggregated</option>-->
-  <!--      </select>-->
-  <!--      <label for="team">Choose Team:</label>-->
-  <!--      <select name="team" id="team" onchange="changeTeam()">-->
-  <!--        <option value="1">1</option>-->
-  <!--        <option value="2">2</option>-->
-  <!--        <option value="5">5</option>-->
-  <!--        <option value="7">7</option>-->
-  <!--        <option value="8">8</option>-->
-  <!--      </select>-->
   <div>
         <span>
-<!--          <svg width="700" height="700" id="sankey_svg"></svg>-->
         </span>
     <span>
-<!--          <span>-->
-      <!--            <label for="host">Choose Host:</label>-->
-      <!--            <select name="host" id="host" onchange="changeHost()"></select>-->
-      <!--          </span>-->
-      <!--          <svg width="500" height="500" id="word_cloud_svg"></svg>-->
         </span>
   </div>
 </div>
@@ -76,60 +58,13 @@
       <option value="7">7</option>
       <option value="8">8</option>
     </select>
-    <!--            <button type="button" class="btn btn-primary" onclick="playData()">Primary</button>-->
-    <!--            <div class="dropdown" >-->
-    <!--                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">-->
-    <!--                    Select Team-->
-    <!--                </button>-->
-    <!--                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="teamDropdown">-->
-    <!--                    <li><a class="dropdown-item" value="1" href="#">Team 1</a></li>-->
-    <!--                    <li><a class="dropdown-item" value="2" href="#">Team 2</a></li>-->
-    <!--                    <li><a class="dropdown-item" value="5" href="#">Team 5</a></li>-->
-    <!--                    <li><a class="dropdown-item" value="7" href="#">Team 7</a></li>-->
-    <!--                    <li><a class="dropdown-item" value="8" href="#">Team 8</a></li>-->
-    <!--                    <li><a class="dropdown-item" value="9" href="#">Team 9</a></li>-->
-    <!--                </ul>-->
-    <!--            </div>-->
-    <!--            <div class="dropdown" >-->
-    <!--                <button class="btn btn-secondary dropdown-toggle" type="button" id="data_type_dropdown" data-bs-toggle="dropdown" aria-expanded="false">-->
-    <!--                    Select Team-->
-    <!--                </button>-->
-    <!--                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="data_type">-->
-    <!--                    <li><a class="dropdown-item" value="minute" href="#">Minute Wise</a></li>-->
-    <!--                    <li><a class="dropdown-item" value="aggregated" href="#">Aggregated</a></li>-->
-    <!--                </ul>-->
-    <!--            </div>-->
     <div class="graphBox">
       <div class="box">
 
 
         <div class="chart-container">
-
-          <!--                        <div class="dropdown">-->
-          <!--                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">-->
-          <!--                                Dropdown button-->
-          <!--                            </button>-->
-          <!--                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">-->
-          <!--                                <div class="form-check">-->
-          <!--                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">-->
-          <!--                                    <label class="form-check-label" for="flexCheckDefault1">-->
-          <!--                                        Default checkbox-->
-          <!--                                    </label>-->
-          <!--                                </div>-->
-          <!--                                <div class="form-check">-->
-          <!--                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked>-->
-          <!--                                    <label class="form-check-label" for="flexCheckChecked1">-->
-          <!--                                        Checked checkbox-->
-          <!--                                    </label>-->
-          <!--                                </div>-->
-          <!--                            </ul>-->
-          <!--                        </div>-->
-
-          <span>
-            <label for="host">Choose Host:</label>
-            <select name="host" id="host" onchange="changeHost()"></select>
-          </span>
-          <svg width="600" height="600" id="sankey_svg"></svg>
+          <svg width="600" height="600" viewBox="0 0 600 600"
+  preserveAspectRatio="xMidYMid meet" id="sankey_svg"></svg>
         </div>
       </div>
       <div class="box">
@@ -153,7 +88,12 @@
               </div>
             </ul>
           </div>
-          <svg width="500" height="500" id="word_cloud_svg"></svg>
+          <div id = "wc_no_data">Data not available</div>
+          <span>
+            <label for="host">Choose Host:</label>
+            <select name="host" id="host" onchange="changeHost()"></select>
+          </span>
+          <svg id="word_cloud_svg"></svg>
         </div>
       </div>
       <div class="box">
@@ -196,7 +136,8 @@
               </div>
             </ul>
           </div>
-          <svg id="svg-3"></svg>
+          <svg id="svg-3" style="margin-bottom: 0; padding-bottom: 0;"></svg>
+          <svg id="svg-3-legend" style="height: 30px; margin-top: 0; padding-top: 0;"></svg>
         </div>
       </div>
       <div class="box">
@@ -245,57 +186,14 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row justify-content-center">
-    <div class="col-xs-6">
-
-        <div class="section-title">
-            <h2><span>Heading goes here</br></span></h2>
-        </div>
-
-    </div>
-    <div class="col-xs-6">
-
-        <div class="card">
-            <div id="left-side-container">
-                <svg id="left-side"></svg>
-            </div>
-            <br>
-            </br>
-            <br>
-            </br>
-        </div>
-    </div>
-
-    <div class="col-xs-6">
-
-        <div class="section-title">
-            <h2><span>Heading goes here</br></span></h2>
-        </div>
-
-    </div>
-    <div class="col-xs-6">
-
-        <div class="card">
-            <div id="right-side-container">
-                <svg id="right-side"></svg>
-            </div>
-            <br>
-            </br>
-            <br>
-            </br>
-        </div>
-    </div>
-</div> -->
   </section>
   <div class="footer">
-    <p class="pull-left">Data source: <a href="http://cptc.rit.edu/">Hacking Event Data</a></p>
-    <p class="pull-right"> Paper source: <a
-            href="https://diglib.eg.org/bitstream/handle/10.1111/cgf13965/v39i3pp089-100.pdf"> Bombalytics:
-      Visualization of Competition and Collaboration Strategies of Players in a Bomb Laying Game</a>
-    </p>
+
   </div>
+  <div class="navbar fixed-bottom">
+    <img src="images/pause.png" id="playButton" onclick="pausePlayClick()">
+    <input type="range" min="1" max="100" value="0" id="playSlider" onchange="sliderChange()"></div>
 </div>
-<img src="images/pause.png" id="playButton" onclick="pausePlayClick()">
-<input type="range" min="1" max="100" value="0" id="playSlider" onchange="sliderChange()">
+
 </body>
 </html>

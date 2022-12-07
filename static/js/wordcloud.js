@@ -8,10 +8,13 @@ function wordCloud(selector) {
         .append("g")
         .attr("transform", "translate(250,250)");
 
+
+
     //Draw the word cloud
     function draw(words) {
         var cloud = wordcloud_svg.selectAll("g text")
-                        .data(words, function(d) { return d.text; })
+            .data(words, function(d) { return d.text; })
+
 
         //Entering words
         cloud.enter()
@@ -25,20 +28,20 @@ function wordCloud(selector) {
         //Entering and existing words
         cloud
             .transition()
-                .duration(600)
-                .style("font-size", function(d) { return d.size + "px"; })
-                .attr("transform", function(d) {
-                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-                })
-                .style("fill-opacity", 1);
+            .duration(600)
+            .style("font-size", function(d) { return d.size + "px"; })
+            .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .style("fill-opacity", 1);
 
         //Exiting words
         cloud.exit()
             .transition()
-                .duration(200)
-                .style("fill-opacity", 1e-6)
-                .attr("font-size", 1)
-                .remove();
+            .duration(200)
+            .style("fill-opacity", 1e-6)
+            .attr("font-size", 1)
+            .remove();
     }
 
 

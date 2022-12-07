@@ -1,17 +1,18 @@
+import datetime
 import json
-
+import csv
+from dateutil.parser import parse
 from flask import Flask, request, send_from_directory
 
-# from flask_cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin
 
-# app = Flask(__name__)
 app = Flask(__name__, static_url_path='', static_folder='static')
-# cors = CORS(app)
-# app.config['CORS_HEADERS'] = 'Content-Type'
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+start_time = parse("2018-11-03T12:00:00.000Z")
 
 @app.route("/")
-# @cross_origin()
+@cross_origin()
 def helloWorld():
     return send_from_directory("static", "index.html")
     # return "Hello, cross-origin-world!"
@@ -30,10 +31,11 @@ def getData():
     host = request.args["host"]
     time = request.args["time"]
     resp = {
-    "sankey": getSankeyData(team, time),
-            "wordcloud": getWordCloudData(team, host, time),
-            "treeMap": getTreeMapData(team, time)
-            }
+        "sankey": getSankeyData(team, time),
+        "wordcloud": getWordCloudData(team, host, time),
+        "treeMap": getTreeMapData(team, time),
+        "stackedBar": get_stacked_bar_data(team, time)
+    }
     return resp
 
 
@@ -86,6 +88,39 @@ def getSankeyData(team, time):
     dt["aggregated"] = data2[time] if time in data2 else {}
 
     return dt
+
+
+def get_datetime_based_on_client_time(time):
+    return start_time + datetime.timedelta(minutes=time)
+
+
+def get_stacked_bar_data(team, time):
+    time = int(time)
+    data = get_http_data(team, time)
+    status = get_all_http_status()
+    return {
+        "data": data,
+        "status": status
+    }
+
+def get_all_http_status():
+    data_file = f"data/processed/stackedbar/status.json"
+    with open(data_file) as f:
+        status = json.load(f)
+    return status
+def get_http_data(team, time):
+    data_file = f"data/processed/stackedbar/minute/team_{team}_http_pivot.csv"
+    # mod = int(time) % 2
+    # data_file = f"data/processed/stackedbar/test_data_{mod}.csv"
+    date_time = get_datetime_based_on_client_time(time)
+    arr = []
+    with open(data_file, encoding='utf-8') as f:
+        csv_reader = csv.DictReader(f)
+        for row in csv_reader:
+            if parse(row["date"]) == date_time:
+                arr.append(row)
+            # arr.append(row)
+    return arr
 
 
 def getTreeMapData(team, time):
