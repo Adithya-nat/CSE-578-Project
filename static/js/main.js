@@ -7,6 +7,19 @@ var current_minute = start_minute;
 var end_minute = start_minute+120;
 var duration = 3000;
 const $ = (id) => document.getElementById(id)
+const getTextWidth = () => {
+    const text = document.createElement("span");
+    document.body.appendChild(text);
+    // text.style.font = "times new roman";
+    // text.style.fontSize = 16 + "px";
+    text.style.height = 'auto';
+    text.style.width = 'auto';
+    text.style.position = 'absolute';
+    text.style.whiteSpace = 'no-wrap';
+    text.innerHTML = 'Hello World';
+
+    return Math.ceil(text.clientWidth)
+};
 
 
 function get_ip_or_host(x) {

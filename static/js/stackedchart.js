@@ -135,7 +135,7 @@ function stacked_chart(csv, svgEl, margin, allhosts, allstatus, allstatuscolor, 
 
 drawStackedChart = (data, reset) => {
     const margin = {
-        top: 20,
+        top: 60,
         bottom: 20,
         left: 20,
         right: 0
@@ -145,11 +145,42 @@ drawStackedChart = (data, reset) => {
     let chart_data = data.data;
     if(!redrawStackedChart || reset) {
         let allstatuscolor = ["#3366cc","#dc3912","#ff9900","#109618","#990099","#0099c6","#dd4477","#66aa00","#b82e2e","#316395","#3366cc","#994499","#22aa99","#aaaa11","#6633cc","#e67300","#8b0707","#651067","#329262","#5574a6","#3b3eac","#b77322","#16d620","#b91383","#f4359e","#9c5935","#a9c413","#2a778d","#668d1c","#bea413","#0c5922","#743411"];
+        let domain = d3.ticks(0, 600, 6);
+        let range = ["black", "blue", "green", "purple", "yellow", "red"];
         let z = d3.scaleLinear()
-            .domain(d3.ticks(0, 600, 6))
-            .range(["black", "blue", "green", "purple", "yellow", "red"])
-        redrawStackedChart = stacked_chart(chart_data, $("svg-3"), margin, hosts, status, allstatuscolor, "dest_ip", false, z)
+            .domain(domain)
+            .range(range)
+
+        let svgEl = $("svg-3");
+        if (!redrawStackedChart) {
+            drawStackedBarLegend(svgEl, domain, range)
+        }
+        redrawStackedChart = stacked_chart(chart_data, svgEl, margin, hosts, status, [], "dest_ip", false, z)
 
     }
     redrawStackedChart(chart_data, 1000)
+}
+
+drawStackedBarLegend = (svgEl, domain, range) => {
+
+    const linear = d3.scaleOrdinal()
+        .domain(domain)
+        .range(range);
+
+    const svg = d3.select(svgEl)
+
+    svg.append("g")
+        .attr("class", "legendLinear")
+        .attr("transform", "translate(20,20)");
+
+    var legendLinear = d3.legendColor()
+        .shapeWidth(30)
+        .cells(domain)
+        .orient('horizontal')
+        .scale(linear);
+
+    svg.select(".legendLinear")
+        .call(legendLinear);
+
+
 }
