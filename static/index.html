@@ -153,7 +153,7 @@
               </div>
             </ul>
           </div>
-          <svg width="500" height="500" id="word_cloud_svg"></svg>
+          <svg id="word_cloud_svg"></svg>
         </div>
       </div>
       <div class="box">
@@ -288,14 +288,12 @@
 </div> -->
   </section>
   <div class="footer">
-    <p class="pull-left">Data source: <a href="http://cptc.rit.edu/">Hacking Event Data</a></p>
-    <p class="pull-right"> Paper source: <a
-            href="https://diglib.eg.org/bitstream/handle/10.1111/cgf13965/v39i3pp089-100.pdf"> Bombalytics:
-      Visualization of Competition and Collaboration Strategies of Players in a Bomb Laying Game</a>
-    </p>
+
   </div>
+  <div class="navbar fixed-bottom">
+    <img src="images/pause.png" id="playButton" onclick="pausePlayClick()">
+    <input type="range" min="1" max="100" value="0" id="playSlider" onchange="sliderChange()"></div>
 </div>
-<img src="images/pause.png" id="playButton" onclick="pausePlayClick()">
-<input type="range" min="1" max="100" value="0" id="playSlider" onchange="sliderChange()">
+
 </body>
 </html>
