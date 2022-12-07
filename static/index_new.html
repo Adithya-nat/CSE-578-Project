@@ -31,12 +31,11 @@
             </div>
         </div>
         <section class="featured-posts">
-            <button type="button" class="btn btn-primary" onclick="playData()">Primary</button>
             <div class="dropdown" >
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="select-team" data-bs-toggle="dropdown" aria-expanded="false">
                     Select Team
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="teamDropdown">
+                <ul class="dropdown-menu" aria-labelledby="select-team" id="teamDropdown">
                     <li><a class="dropdown-item" value="1" href="#">Team 1</a></li>
                     <li><a class="dropdown-item" value="2" href="#">Team 2</a></li>
                     <li><a class="dropdown-item" value="5" href="#">Team 5</a></li>
@@ -47,121 +46,54 @@
             </div>
             <div class="graphBox">
                 <div class="box">
-
-
-                    <div class="chart-container">
-
-                        <!--                        <div class="dropdown">-->
-                        <!--                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">-->
-                        <!--                                Dropdown button-->
-                        <!--                            </button>-->
-                        <!--                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">-->
-                        <!--                                <div class="form-check">-->
-                        <!--                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">-->
-                        <!--                                    <label class="form-check-label" for="flexCheckDefault1">-->
-                        <!--                                        Default checkbox-->
-                        <!--                                    </label>-->
-                        <!--                                </div>-->
-                        <!--                                <div class="form-check">-->
-                        <!--                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked>-->
-                        <!--                                    <label class="form-check-label" for="flexCheckChecked1">-->
-                        <!--                                        Checked checkbox-->
-                        <!--                                    </label>-->
-                        <!--                                </div>-->
-                        <!--                            </ul>-->
-                        <!--                        </div>-->
-
-
+                    <div class="chart-container" id="chart-container-1">
                         <svg id="svg-1"></svg>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="chart-container" id="wc-dropdown">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                                    <label class="form-check-label" for="flexCheckDefault2">
-                                        Default checkbox
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked>
-                                    <label class="form-check-label" for="flexCheckChecked2">
-                                        Checked checkbox
-                                    </label>
-                                </div>
-                            </ul>
+                    <div class="chart-container" id="chart-container-2">
+                        <div class="option-div btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="chart-2-data-type" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Aggregation Type
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <!--dynamically enter info for hosts-->
+                                </ul>
+                            </div>
                         </div>
                         <svg id="svg-2"></svg>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="chart-container">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                                    <label class="form-check-label" for="flexCheckDefault3">
-                                        Default checkbox
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked>
-                                    <label class="form-check-label" for="flexCheckChecked3">
-                                        Checked checkbox
-                                    </label>
-                                </div>
-                            </ul>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
-                                    <label class="form-check-label" for="flexCheckDefault4">
-                                        Default checkbox
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" checked>
-                                    <label class="form-check-label" for="flexCheckChecked4">
-                                        Checked checkbox
-                                    </label>
-                                </div>
-                            </ul>
+                    <div class="chart-container" id="chart-container-3">
+                        <div class="option-div btn-group">
+                            <div class="">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                </ul>
+                            </div>
+                            <div class="">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                                </ul>
+                            </div>
                         </div>
                         <svg id="svg-3"></svg>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="chart-container">
+                    <div class="chart-container" id="chart-container-4">
 
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">
                                 Dropdown button
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
-                                    <label class="form-check-label" for="flexCheckDefault5">
-                                        Default checkbox
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked5" checked>
-                                    <label class="form-check-label" for="flexCheckChecked5">
-                                        Checked checkbox
-                                    </label>
-                                </div>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
                             </ul>
                         </div>
 
@@ -169,66 +101,13 @@
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-expanded="false">
                                 Dropdown button
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
-                                    <label class="form-check-label" for="flexCheckDefault6">
-                                        Default checkbox
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked6" checked>
-                                    <label class="form-check-label" for="flexCheckChecked6">
-                                        Checked checkbox
-                                    </label>
-                                </div>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
                             </ul>
                         </div>
                         <svg id="svg-4"></svg>
                     </div>
                 </div>
             </div>
-            <!-- <div class="row justify-content-center">
-            <div class="col-xs-6">
-
-                <div class="section-title">
-                    <h2><span>Heading goes here</br></span></h2>
-                </div>
-
-            </div>
-            <div class="col-xs-6">
-
-                <div class="card">
-                    <div id="left-side-container">
-                        <svg id="left-side"></svg>
-                    </div>
-                    <br>
-                    </br>
-                    <br>
-                    </br>
-                </div>
-            </div>
-
-            <div class="col-xs-6">
-
-                <div class="section-title">
-                    <h2><span>Heading goes here</br></span></h2>
-                </div>
-
-            </div>
-            <div class="col-xs-6">
-
-                <div class="card">
-                    <div id="right-side-container">
-                        <svg id="right-side"></svg>
-                    </div>
-                    <br>
-                    </br>
-                    <br>
-                    </br>
-                </div>
-            </div>
-        </div> -->
         </section>
         <div class="footer">
             <p class="pull-left">Data source: <a href="http://cptc.rit.edu/">Hacking Event Data</a></p>
@@ -243,7 +122,6 @@
             </div>
         </div>
     </div>
-    <script src="js/bootstrap_min_updated.js"></script>
     <script src="js/main_new.js"></script>
 
 </body>
