@@ -6,6 +6,7 @@ var start_minute = 88;
 var current_minute = start_minute;
 var end_minute = start_minute+120;
 var duration = 3000;
+const $ = (id) => document.getElementById(id)
 
 function changeDataType(){
     if(document.getElementById("datatype").value == "aggregated"){
@@ -41,6 +42,7 @@ async function updateData() {
     let data = await response.json();
 
     if(isAggregated){
+
         updateWordCloudData(data["wordcloud"]["aggregated"]);
         if(Object.keys(data["sankey"]["aggregated"]).length > 0){
             updateSankeyData(data["sankey"]["aggregated"]);
@@ -54,6 +56,8 @@ async function updateData() {
         } else {
             console.log("No Data")
         }
+        drawStackedChart(data["stackedBar"])
+
     }
     updatePlaySlider();
 }
