@@ -102,6 +102,27 @@ function stacked_chart(csv, svgEl, margin, allhosts, allstatus, allstatuscolor, 
             .attr("y", d => y(d[1]))
             .attr("height", d => y(d[0]) - y(d[1]))
 
+        svg.selectAll("rect")
+            .on("mouseover", function(d) {
+                console.log("mouseover", d);
+                const key = d3.select(this.parentNode).datum().key;
+                console.log("stack", key, d.data[key]);
+            tooltip.html(`Subject:  ${d.data["dest_ip"]} <br>
+               Response status: ${key} <br> Number of requests: ${d.data[key]}`)
+                .style('top', `${d3.event.pageY}px`)
+                .style('left', `${d3.event.pageX}px`).style("opacity", 1);
+            })
+            .on("mouseout", function() {
+                tooltip
+                    .style("opacity", 0);
+            })
+            .on("mousemove", function(event, d) {
+                console.log("event", `${d3.event.pageY}px`);
+                tooltip
+                    .style("left",(d3.event.pageX+5)+"px")
+                    .style("top",(d3.event.pageY-5)+"px")
+            });
+
         const text = svg.selectAll(".text")
             .data(data, d => d[X]);
 

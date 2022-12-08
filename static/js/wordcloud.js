@@ -6,7 +6,7 @@ function wordCloud(selector) {
     //Construct the word cloud's SVG element
     var wordcloud_svg = d3.select("#word_cloud_svg")
         .append("g")
-        .attr("transform", "translate(250,250)");
+        .attr("transform", "translate(275,290)");
 
 
 
@@ -15,16 +15,7 @@ function wordCloud(selector) {
         var cloud = wordcloud_svg.selectAll("g text")
             .data(words, function(d) { return d.text; })
 
-        var tooltip = d3.select("body")
-            .append("span")
-            .style("opacity", 0)
-            .attr("class", "tooltip")
-            .style("background-color", "white")
-            .style("border", "solid")
-            .style("border-width", "2px")
-            .style("border-radius", "5px")
-            .style("padding", "10px")
-            .style("position", "absolute")
+
 
 
         //Entering words
@@ -46,9 +37,10 @@ function wordCloud(selector) {
                     .style("opacity", 0);
             })
             .on("mousemove", function(event, d) {
+                console.log("event", `${d3.event.pageY}px`);
                 tooltip
-                    .style("left",(1000)+"px")
-                    .style("top",(175)+"px")
+                    .style("left",(d3.event.pageX+5)+"px")
+                    .style("top",(d3.event.pageY-5)+"px")
             });
 
         //Entering and existing words

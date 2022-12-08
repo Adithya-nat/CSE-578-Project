@@ -6,6 +6,9 @@ var start_minute = 88;
 var current_minute = start_minute;
 var end_minute = start_minute+120;
 var duration = 3000;
+
+var tooltip;
+
 const $ = (id) => document.getElementById(id)
 const getTextWidth = () => {
     const text = document.createElement("span");
@@ -38,7 +41,7 @@ async function changeTeam(){
     let response = await fetch(url);
     let data = await response.json();
     team_hosts = data["host"]
-    generateHostDropDown()
+    generateHostDropDown();
     updateData()
 }
 
@@ -62,7 +65,7 @@ async function updateData() {
         document.getElementById('wc_no_data').style.display = 'block';
     }
     else {
-       document.getElementById('wc_no_data').style.display = 'none';
+        document.getElementById('wc_no_data').style.display = 'none';
     }
 
     if(isAggregated){
@@ -84,9 +87,22 @@ async function updateData() {
 
     }
     updatePlaySlider();
+    tooltip
+        .style("opacity", 0);
 }
 
 window.addEventListener('load', function () {
+
+    tooltip  = d3.select("body")
+            .append("span")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "2px")
+            .style("border-radius", "5px")
+            .style("padding", "10px")
+            .style("position", "absolute");
 
     // word cloud
     myWordCloud = wordCloud("body");
@@ -114,7 +130,7 @@ window.addEventListener('load', function () {
         .attr("class", "nodes");
 
     sankey_formatNumber = d3.format(",");
-    sankey_format = function(d) { return sankey_formatNumber(d); };
+    sankey_format = function(d) { return sankey_formatNumber(d); }
 
     // update Data
     startUpdateData()

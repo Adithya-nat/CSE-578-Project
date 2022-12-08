@@ -1,20 +1,7 @@
 var sankey_svg, sankey_width, sankey_height, sankey_color, sankey_t, sankey, sankey_links, sankey_nodes, sankey_formatNumber, sankey_format;
-
 function updateSankey(graph) {
     var link = sankey_links.selectAll("path")
         .data(graph.links, function(d) { return d; });
-
-
-    var div = d3.select("body")
-        .append("span")
-        .style("opacity", 0)
-        .attr("class", "tooltip")
-        .style("background-color", "white")
-        .style("border", "solid")
-        .style("border-width", "2px")
-        .style("border-radius", "5px")
-        .style("padding", "10px")
-        .style("position", "absolute")
 
     var linkEnter = link.enter().append("path")
         .attr("d", d3.sankeyLinkHorizontal())
@@ -23,18 +10,19 @@ function updateSankey(graph) {
 
     linkEnter.on("mouseover", function(d) {
         console.log("mouseover", d);
-        div
+        console.log(tooltip);
+        tooltip
             .html("Source IP: " + d.source.name + "<br/>" + "Total Bytes " + d.source.value +"<br/>" + "Target IP: " + d.target.name +"<br/>" + "Total bytes: " + d.target.value)
             .style("opacity", 1);
     })
         .on("mouseout", function() {
-            div
+            tooltip
                 .style("opacity", 0);
         })
         .on("mousemove", function(event, d) {
-            div
-                .style("left",(1000)+"px")
-                .style("top",(175)+"px")
+            tooltip
+                .style("left",(d3.event.pageX+5)+"px")
+                .style("top",(d3.event.pageY-5)+"px")
         });
 
     link.transition(sankey_t)
