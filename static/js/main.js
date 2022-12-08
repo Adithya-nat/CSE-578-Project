@@ -6,6 +6,7 @@ var start_minute = 88;
 var current_minute = start_minute;
 var end_minute = start_minute+120;
 var duration = 3000;
+let teamChange = false;
 
 var tooltip;
 
@@ -36,13 +37,16 @@ function changeDataType(){
 }
 
 async function changeTeam(){
+    teamChange = true;
     team = document.getElementById("team").value;
     url = "getTeamData?team="+team
     let response = await fetch(url);
     let data = await response.json();
-    team_hosts = data["host"]
+    team_hosts = data["host"];
+    //resetStackChart();
     generateHostDropDown();
     updateData()
+    teamChange=false;
 }
 
 async function startUpdateData(){
@@ -83,7 +87,13 @@ async function updateData() {
         } else {
             console.log("No Data")
         }
-        drawStackedChart(data["stackedBar"])
+        if(teamChange) {
+            drawStackedChart(data["stackedBar"], true)
+        }
+        else {
+           drawStackedChart(data["stackedBar"], false);
+        }
+
 
     }
     updatePlaySlider();
