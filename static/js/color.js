@@ -1,30 +1,31 @@
-const prod_hosts = getAllTeamlessHosts().filter(d => getSubnet(d) === "prod");
+const prod_hosts = getAllTeamlessHosts().filter(d => getSubnet(`t-${d}`) === "prod");
 prod_hosts.sort()
 
-const auto_hosts = getAllTeamlessHosts().filter(d => getSubnet(d) === "auto");
+const auto_hosts = getAllTeamlessHosts().filter(d => getSubnet(`t-${d}`) === "auto");
 auto_hosts.sort()
 
-const corp_hosts = getAllTeamlessHosts().filter(d => getSubnet(d) === "corp");
+const corp_hosts = getAllTeamlessHosts().filter(d => getSubnet(`t-${d}`) === "corp");
 corp_hosts.sort()
 
-const vdi_hosts = getAllTeamlessHosts().filter(d => getSubnet(d) === "vdi");
+const vdi_hosts = getAllTeamlessHosts().filter(d => getSubnet(`t-${d}`) === "vdi");
 vdi_hosts.sort()
 
 const prod_color = d3.scaleOrdinal()
     .domain(prod_hosts)
-    .range(d3[`schemeReds`][15])
+    .range(d3.schemeReds[9])
 
 const auto_color = d3.scaleOrdinal()
-    .domain(prod_hosts)
-    .range(d3[`schemePurples`][15])
+    .domain(auto_hosts)
+    .range(d3[`schemePurples`][9])
 
 const corp_color = d3.scaleOrdinal()
-    .domain(prod_hosts)
-    .range(d3[`schemeOranges`][15])
+    .domain(corp_hosts)
+    .range(d3[`schemeOranges`][9])
+
 
 const vdi_color = d3.scaleOrdinal()
-    .domain(prod_hosts)
-    .range(d3[`schemeBlues`][15])
+    .domain(vdi_hosts)
+    .range(d3[`schemeBlues`][9])
 
 
 

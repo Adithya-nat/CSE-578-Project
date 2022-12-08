@@ -1,4 +1,4 @@
-let dictionary = {
+let hostToIP = {
         "prod-postgres-00": "10.0.1.51",
         "prod-routing-00": "10.0.1.42",
         "prod-money-00": "10.0.1.44",
@@ -22,16 +22,16 @@ let dictionary = {
         "vdi-win05": "10.0.254.105",
         "vdi-win06": "10.0.254.106",
 
-        "cars-car-114": "10.0.2.114",
-        "cars-car-128": "10.0.2.128",
-        "cars-car-135": "10.0.2.135",
-        "cars-car-136": "10.0.2.136",
-        "cars-car-177": "10.0.2.177",
-        "cars-car-190": "10.0.2.190",
-        "cars-car-18": "10.0.2.18",
-        "cars-car-21": "10.0.2.21",
-        "cars-car-33": "10.0.2.33",
-        "cars-car-87": "10.0.2.87",
+        "auto-car-114": "10.0.2.114",
+        "auto-car-128": "10.0.2.128",
+        "auto-car-135": "10.0.2.135",
+        "auto-car-136": "10.0.2.136",
+        "auto-car-177": "10.0.2.177",
+        "auto-car-190": "10.0.2.190",
+        "auto-car-18": "10.0.2.18",
+        "auto-car-21": "10.0.2.21",
+        "auto-car-33": "10.0.2.33",
+        "auto-car-87": "10.0.2.87",
 
         "corp-mail-00": "10.0.0.22",
         "corp-people-00": "10.0.0.21",
@@ -45,6 +45,13 @@ let dictionary = {
         "corp-employee-00": "10.0.0.240"
 }
 
+let ipToHost = {}
+let _k = Object.keys(hostToIP)
+for(var i = 0; i < _k.length; i++ ) {
+    const ip = hostToIP[_k]
+    ipToHost[ip] = _k
+}
+
 const isIP = x => {
     const arr = x.split(".");
     return arr.length === 4;
@@ -53,12 +60,12 @@ const getIP = (host) => {
     const arr = host.split("-")
     const new_arr = arr.splice(1);
     const teamlessHost = new_arr.join("-");
-    return dictionary[teamlessHost];
+    return hostToIP[teamlessHost];
 }
 
 const getHost = (ip) => {
     const team = getTeam();
-    const teamlessHost = dictionary[ip];
+        const teamlessHost = ipToHost[ip];
     return `${team}-${teamlessHost}`
 }
 
@@ -68,21 +75,19 @@ const getTeam = () => {
 }
 
 const getSubnet = (host) => {
-    if (host === undefined && host === null) {
+    if (host === undefined || host === null) {
         return null;
     }
     const arr = host.split("-");
-    if(arr.length < 4){
+    if(arr.length < 2){
         return null
     }
     return arr[1]
 }
 
 const getAllTeamlessHosts = () => {
-    return [...new Set(dictionary.keys()
-        .filter(hostOrIP => hostOrIP.split(".") !== 3))
-        .map(d => `t${getTeam()}-${d}`)
-    ]
+    const teamlessHosts = Object.keys(hostToIP).filter(hostOrIP => hostOrIP.split(".").length !== 3).map(d => d);
+    return [...new Set(teamlessHosts)]
 }
 
 const getTeamlessHost = (host) => {
@@ -92,10 +97,10 @@ const getTeamlessHost = (host) => {
 }
 
 function get_ip_or_host(x) {
-    let ip = dictionary[x.slice(3)]
+    let ip = hostToIP[x.slice(3)]
     let host = ""
     if (ip == null) {
-        host = Object.keys(dictionary).find(key => dictionary[key] === x);
+        host = Object.keys(hostToIP).find(key => hostToIP[key] === x);
         return host
     }
     return ip
