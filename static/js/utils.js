@@ -64,6 +64,7 @@ const getHost = (ip) => {
 
 const getTeam = () => {
     //todo @adithya
+    return document.getElementById("team");
 }
 
 const getSubnet = (host) => {
