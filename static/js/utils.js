@@ -78,6 +78,19 @@ const getSubnet = (host) => {
     return arr[1]
 }
 
+const getAllTeamlessHosts = () => {
+    return [...new Set(dictionary.keys()
+        .filter(hostOrIP => hostOrIP.split(".") !== 3))
+        .map(d => `t${getTeam()}-${d}`)
+    ]
+}
+
+const getTeamlessHost = (host) => {
+    const arr = host.split("-")
+    const new_arr = arr.splice(1);
+    return new_arr.join("-");
+}
+
 function get_ip_or_host(x) {
     let ip = dictionary[x.slice(3)]
     let host = ""
