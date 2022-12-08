@@ -17,6 +17,7 @@
   <script src="js/slider.js"></script>
   <script src="js/wordcloud.js"></script>
   <script src="js/sankey.js"></script>
+<!--  <script src="js/treemap.js"></script>-->
   <script src="js/stackedchart.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/color.js"></script>
@@ -66,9 +67,8 @@
     </select>
     <div class="graphBox">
       <div class="box">
-
-
         <div class="chart-container">
+          <span>Sankey Network Flow</span>
           <svg width="600" height="600" viewBox="0 0 600 600"
                preserveAspectRatio="xMidYMid meet" id="sankey_svg"></svg>
         </div>
@@ -94,9 +94,10 @@
           <!--              </div>-->
           <!--            </ul>-->
           <!--          </div>-->
-          <div id = "wc_no_data"><span class="label label-important">Data not available</span></div>
-          <span>
-            <label for="host">Choose Host:</label>
+          <div id = "wc_no_data" style="display: none"><span class="label label-important">Data not available</span></div>
+          <span>Commands Word Cloud</span>
+          <span style="float: right">
+            <label for="host">Host:</label>
             <select name="host" id="host" onchange="changeHost()"></select>
           </span>
           <svg id="word_cloud_svg"></svg>
@@ -104,57 +105,18 @@
       </div>
       <div class="box">
         <div class="chart-container">
-          <div class="form-check form-switch">
+          <span>HTTP Response Stacked Bar</span>
+          <div class="form-check form-switch" style="float: right">
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onchange="sortSwitchChange(this.checked)">
             <label class="form-check-label" for="flexSwitchCheckChecked">Sort data</label>
           </div>
           <svg id="svg-3" style="margin-bottom: 0; padding-bottom: 0;"></svg>
-          <svg id="svg-3-legend" style="height: 30px; margin-top: 0; padding-top: 0;"></svg>
         </div>
       </div>
       <div class="box">
         <div class="chart-container">
-
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown button
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
-                <label class="form-check-label" for="flexCheckDefault5">
-                  Default checkbox
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked5" checked>
-                <label class="form-check-label" for="flexCheckChecked5">
-                  Checked checkbox
-                </label>
-              </div>
-            </ul>
-          </div>
-
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown button
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
-                <label class="form-check-label" for="flexCheckDefault6">
-                  Default checkbox
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked6" checked>
-                <label class="form-check-label" for="flexCheckChecked6">
-                  Checked checkbox
-                </label>
-              </div>
-            </ul>
-          </div>
-          <svg id="svg-4"></svg>
+          <span>File access Tree Map</span>
+          <svg id="treemap_svg"></svg>
         </div>
       </div>
     </div>

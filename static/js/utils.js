@@ -5,9 +5,12 @@ let hostToIP = {
         "prod-memcache-13": "10.0.1.54",
         "prod-dapi-00": "10.0.1.40",
         "prod-geo-04": "10.0.1.52",
+        "prod-geo-05": "10.0.1.53",
         "prod-safety-00": "10.0.1.43",
         "prod-frontend-00": "10.0.1.5",
         "prod-lapi-00": "10.0.1.41",
+        "prod-trackdash-00": "10.0.1.46",
+
 
         "vdi-kali01": "10.0.254.201",
         "vdi-kali02": "10.0.254.202",
@@ -42,14 +45,18 @@ let hostToIP = {
         "corp-security-00": "10.0.0.24",
         "corp-talk-00": "10.0.0.20",
         "corp-ad-00": "10.0.0.10",
-        "corp-employee-00": "10.0.0.240"
+        "corp-employee-00": "10.0.0.240",
+        "corp-employee-01": "10.0.0.241",
+        "corp-employee-03": "10.0.0.243",
+        "corp-employee-04": "10.0.0.244",
+
 }
 
 let ipToHost = {}
 let _k = Object.keys(hostToIP)
 for(var i = 0; i < _k.length; i++ ) {
-    const ip = hostToIP[_k]
-    ipToHost[ip] = _k
+    const ip = hostToIP[_k[i]]
+    ipToHost[ip] = _k[i]
 }
 
 const isIP = x => {

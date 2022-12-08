@@ -10,12 +10,9 @@ let teamChange = false;
 
 var tooltip;
 
-const $ = (id) => document.getElementById(id)
 const getTextWidth = () => {
     const text = document.createElement("span");
     document.body.appendChild(text);
-    // text.style.font = "times new roman";
-    // text.style.fontSize = 16 + "px";
     text.style.height = 'auto';
     text.style.width = 'auto';
     text.style.position = 'absolute';
@@ -24,7 +21,6 @@ const getTextWidth = () => {
 
     return Math.ceil(text.clientWidth)
 };
-
 
 
 function changeDataType(){
@@ -141,6 +137,18 @@ window.addEventListener('load', function () {
 
     sankey_formatNumber = d3.format(",");
     sankey_format = function(d) { return sankey_formatNumber(d); }
+
+    // //treemap
+    // d3.json("js/countries_1.json", function(err, res) {
+    //     if (!err) {
+    // //         let data = [{"name": "t1-prod-memcache-13/", "count": "7"}, {"name": "t1-prod-memcache-13/bin/dash", "count": "1"}, {"name": "t1-prod-memcache-13/bin/journalctl", "count": "1"}, {"name": "t1-prod-memcache-13/dev/shm/BjFV26", "count": "1"}, {"name": "t1-prod-memcache-13/dev/shm/byRXuf", "count": "1"}, {"name": "t1-prod-memcache-13/dev/shm/wu3TAY", "count": "1"}, {"name": "t1-prod-memcache-13/lib/modules/4.15.0-1023-gcp/modules.alias.bin", "count": "1"}, {"name": "t1-prod-memcache-13/lib/modules/4.15.0-1023-gcp/modules.builtin.bin", "count": "1"}, {"name": "t1-prod-memcache-13/lib/modules/4.15.0-1023-gcp/modules.dep.bin", "count": "1"}, {"name": "t1-prod-memcache-13/lib/modules/4.15.0-1023-gcp/modules.symbols.bin", "count": "1"}, {"name": "t1-prod-memcache-13/lib/systemd/libsystemd-shared-237.so", "count": "3"}, {"name": "t1-prod-memcache-13/lib/systemd/systemd", "count": "1"}, {"name": "t1-prod-memcache-13/lib/systemd/systemd-journald", "count": "1"}, {"name": "t1-prod-memcache-13/lib/systemd/systemd-logind", "count": "1"}, {"name": "t1-prod-memcache-13/lib/systemd/systemd-networkd", "count": "1"}, {"name": "t1-prod-memcache-13/lib/systemd/systemd-resolved", "count": "1"}, {"name": "t1-prod-memcache-13/lib/systemd/systemd-udevd", "count": "1"}, {"name": "t1-prod-memcache-13/lib/udev/hwdb.bin", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/ld-2.27.so", "count": "7"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libacl.so.1.1.0", "count": "3"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libapparmor.so.1.4.2", "count": "2"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libattr.so.1.1.0", "count": "3"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libaudit.so.1.0.0", "count": "3"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libblkid.so.1.1.0", "count": "3"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libbz2.so.1.0.4", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libc-2.27.so", "count": "7"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libcap-ng.so.0.0.0", "count": "3"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libcap.so.2.25", "count": "4"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libcom_err.so.2.1", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libcrypt-2.27.so", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libcryptsetup.so.12.2.0", "count": "3"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libdbus-1.so.3.19.4", "count": "2"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libdevmapper.so.1.02.1", "count": "3"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libdl-2.27.so", "count": "7"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libexpat.so.1.6.7", "count": "2"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libfuse.so.2.9.7", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libgcc_s.so.1", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libgcrypt.so.20.2.1", "count": "5"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libgpg-error.so.0.22.0", "count": "5"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libidn.so.11.6.16", "count": "3"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libjson-c.so.3.0.1", "count": "3"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libkeyutils.so.1.5", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libkmod.so.2.3.2", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/liblzma.so.5.2.2", "count": "5"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libm-2.27.so", "count": "4"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libmnl.so.0.2.0", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libmount.so.1.1.0", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libncursesw.so.5.9", "count": "1"}, {"name": "t1-prod-memcache-13/lib/x86_64-linux-gnu/libnsl-2.27.so", "count": "7"}]
+    //         var data = d3.nest().key(function(d) { return d.region; }).key(function(d) { return d.subregion; }).entries(res);
+    //         console.log("the below is the treemap data");
+    //         console.log(data)
+    //         draw_treemap({title: "World Population"}, {key: "World", values: data});
+    //         // update(data)
+    //    }
+    // });
 
     // update Data
     startUpdateData()

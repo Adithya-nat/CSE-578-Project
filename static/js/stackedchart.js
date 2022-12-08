@@ -178,7 +178,7 @@ drawStackedChart = (data, reset) => {
             .domain(domain)
             .range(range)
 
-        let svgEl = $("svg-3");
+        let svgEl = document.getElementById("svg-3");
         if (!redrawStackedChart) {
             drawStackedBarLegend(svgEl, domain, range)
         }
@@ -190,7 +190,7 @@ drawStackedChart = (data, reset) => {
 }
 
 function sortSwitchChange(value) {
-    const temp = $("flexSwitchCheckChecked");
+    const temp = document.getElementById("flexSwitchCheckChecked");
     console.log("switch value", value, temp);
     sortData = value;
 }

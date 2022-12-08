@@ -46,7 +46,8 @@ function updateSankey(graph) {
         .attr("y", function(d) { return d.y0; })
         .attr("height", function(d) { return d.y1 - d.y0; })
         .attr("width", function(d) { return d.x1 - d.x0; })
-        .attr("fill", function(d) { return sankey_color(d.name.replace(/ .*/, "")); });
+        // .attr("fill", function(d) { return sankey_color(d.name.replace(/ .*/, "")); });
+        .attr("fill", function(d) { return getColor(d.name.replace(/_.*/, '')); });
 
     node.select("rect").transition(sankey_t)
         .attr("y", function(d) { return d.y0; })
