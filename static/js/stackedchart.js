@@ -1,5 +1,6 @@
 // d3.csv("data.csv").then(d => chart(d))
 let redrawStackedChart = null;
+let sortData = false;
 function stacked_chart(csv, svgEl, margin, allhosts, allstatus, allstatuscolor, X, canSort, z) {
 
     const ydomain = allstatus;
@@ -176,10 +177,17 @@ drawStackedChart = (data, reset) => {
         if (!redrawStackedChart) {
             drawStackedBarLegend(svgEl, domain, range)
         }
-        redrawStackedChart = stacked_chart(chart_data, svgEl, margin, hosts, status, [], "dest_ip", false, z)
+
+        redrawStackedChart = stacked_chart(chart_data, svgEl, margin, hosts, status, [], "dest_ip", sortData, z)
 
     }
     redrawStackedChart(chart_data, 1000)
+}
+
+function sortSwitchChange(value) {
+    const temp = $("flexSwitchCheckChecked");
+    console.log("switch value", value, temp);
+    sortData = value;
 }
 
 drawStackedBarLegend = (svgEl, domain, range) => {
